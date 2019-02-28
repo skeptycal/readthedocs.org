@@ -133,6 +133,10 @@ class Version(models.Model):
         )
 
     @property
+    def last_build(self):
+        return self.builds.order_by('-date').first()
+
+    @property
     def config(self):
         """
         Proxy to the configuration of the build.
