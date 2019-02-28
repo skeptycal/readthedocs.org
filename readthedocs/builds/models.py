@@ -290,6 +290,8 @@ class Version(models.Model):
     def get_downloads(self, pretty=False):
         project = self.project
         data = {}
+        # TODO: refactor the ``pretty`` argument. It seems to just return nicer
+        # keys, but the logic looks the same
         if pretty:
             if project.has_pdf(self.slug):
                 data['PDF'] = project.get_production_media_url('pdf', self.slug)
