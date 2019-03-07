@@ -5,6 +5,7 @@ from __future__ import (
     absolute_import, division, print_function, unicode_literals)
 
 import os
+import datetime
 
 from celery.schedules import crontab
 
@@ -81,7 +82,7 @@ class CommunityBaseSettings(Settings):
             'guardian',
             'django_gravatar',
             'rest_framework',
-            'rest_framework.authtoken',
+            # 'rest_framework.authtoken',
             'corsheaders',
             'textclassifier',
             'annoying',
@@ -443,6 +444,15 @@ class CommunityBaseSettings(Settings):
         },
         'PAGE_SIZE': 10,
     }
+
+    SIMPLE_JWT = {
+        'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=5),
+        'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
+        'ROTATE_REFRESH_TOKENS': False,
+        'BLACKLIST_AFTER_ROTATION': True,
+        'AUTH_HEADER_TYPES': ('JWT',),
+    }
+
     SILENCED_SYSTEM_CHECKS = ['fields.W342', 'guardian.W001']
 
     # Logging
