@@ -89,6 +89,7 @@ class CommunityBaseSettings(Settings):
             'messages_extends',
             'tastypie',
             'django_elasticsearch_dsl',
+            'django_filters',
 
             # our apps
             'readthedocs.projects',
