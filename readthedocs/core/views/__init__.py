@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
 Core views, including the main homepage,
 
@@ -15,23 +13,16 @@ from django.http import HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView
 
-
 from readthedocs.builds.models import Version
 from readthedocs.core.utils.general import wipe_version_via_slugs
 from readthedocs.core.resolver import resolve_path
 from readthedocs.core.symlink import PrivateSymlink, PublicSymlink
-from readthedocs.core.utils import broadcast
 from readthedocs.core.views.serve import _serve_file
 from readthedocs.projects.constants import PRIVATE
 from readthedocs.projects.models import Project, ImportedFile
-from readthedocs.projects.tasks import remove_dirs
 from readthedocs.redirects.utils import get_redirect_response, project_and_path_from_request, language_and_version_from_path
 
 log = logging.getLogger(__name__)
-
-
-class NoProjectException(Exception):
-    pass
 
 
 class HomepageView(TemplateView):
@@ -90,7 +81,7 @@ def wipe_version(request, project_slug, version_slug):
     if request.method == 'POST':
         wipe_version_via_slugs(
             version_slug=version_slug,
-            project_slug=project_slug
+            project_slug=project_slug,
         )
         return redirect('project_version_list', project_slug)
     return render(
@@ -188,7 +179,10 @@ def server_error_404_subdomain(request, template_name='404.html'):
         fullpath = os.path.join(basepath, filename)
         return (basepath, filename, fullpath)
 
-    project, full_path = project_and_path_from_request(request, request.get_full_path())
+    project, full_path = project_and_path_from_request(
+        request,
+        request.get_full_path(),
+    )
 
     if project:
         language = None
@@ -200,7 +194,11 @@ def server_error_404_subdomain(request, template_name='404.html'):
         # Firstly, attempt to serve the 404 of the current version (version_slug)
         # Secondly, try to serve the 404 page for the default version (project.get_default_version())
         for slug in (version_slug, project.get_default_version()):
-            basepath, filename, fullpath = resolve_404_path(project, slug, language)
+            basepath, filename, fullpath = resolve_404_path(
+                project,
+                slug,
+                language,
+            )
             if os.path.exists(fullpath):
                 log.debug(
                     'serving 404.html page current version: [project: %s] [version: %s]',
