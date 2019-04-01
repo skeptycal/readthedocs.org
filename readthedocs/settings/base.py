@@ -276,6 +276,15 @@ class CommunityBaseSettings(Settings):
 
     # Docker
     DOCKER_ENABLE = False
+
+    # User used to create the container.
+    # In production we use the same user than the one defined by the
+    # ``USER docs`` instruction inside the Dockerfile.
+    # In development, we can use the "UID:GID" of the current user running the
+    # instance to avoid file permissions issues.
+    # https://docs.docker.com/engine/reference/run/#user
+    DOCKER_USER = 'docs:docs'
+
     DOCKER_DEFAULT_IMAGE = 'readthedocs/build'
     DOCKER_DEFAULT_VERSION = 'latest'
     DOCKER_IMAGE = '{}:{}'.format(DOCKER_DEFAULT_IMAGE, DOCKER_DEFAULT_VERSION)
