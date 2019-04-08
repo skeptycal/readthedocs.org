@@ -1,3 +1,10 @@
+#####
+# Used by Michael Treanor (https://www.github.com/skeptycal) for personal tools
+_tools/
+_tools/*
+.gitignore
+#####
+
 *.db
 *.rdb
 *.egg-info
