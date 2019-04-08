@@ -279,7 +279,7 @@ class Virtualenv(PythonEnvironment):
             # incompatible release
             self.project.get_feature_value(
                 Feature.USE_SETUPTOOLS_LATEST,
-                positive='setuptools<41',
+                positive='setuptools<42',
                 negative='setuptools<41',
             ),
             'docutils==0.14',
