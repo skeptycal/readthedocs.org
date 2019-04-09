@@ -7,8 +7,8 @@ Purpose
 -------
 
 `Read the Docs`_ hosts documentation for the open source community. It supports
-Sphinx_ docs written with reStructuredText_, and can pull from your Subversion_,
-Bazaar_, Git_, and Mercurial_ repositories.
+Sphinx_ docs written with reStructuredText_, and can pull from your
+Subversion_, Bazaar_, Git_, and Mercurial_ repositories.
 Then we build documentation and host it for you.
 Think of it as *Continuous Documentation*.
 
@@ -41,15 +41,16 @@ You can find information about contributing to Read the Docs at our `Contributio
 Quickstart for GitHub-Hosted Projects
 -------------------------------------
 
-By the end of this quickstart, you will have a new project automatically updated
-when you push to GitHub.
+By the end of this quickstart, you will have a new project automatically
+updated when you push to GitHub.
 
 #. Create an account on `Read the Docs`_.  You will get an email verifying your
    email address which you should accept within 7 days.
 
 #. Log in and click on "Import a Project".
 
-#. Click "Connect to GitHub" in order to connect your account's repositories to GitHub.
+#. Click "Connect to GitHub" in order to connect your account's repositories
+   to GitHub.
 
 #. When prompted on GitHub, give access to your account.
 
