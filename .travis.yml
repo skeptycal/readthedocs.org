@@ -1,6 +1,6 @@
 language: python
 python:
-  - 3.6
+  - "3.6"
 dist: xenial
 matrix:
   include:
@@ -43,6 +43,6 @@ notifications:
 
 branches:
   only:
-  - master
-  - rel # Community release branch
-  - relcorp # Corporate release branch
+    - master
+    - rel # Community release branch
+    - relcorp # Corporate release branch
