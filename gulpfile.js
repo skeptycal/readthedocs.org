@@ -1,19 +1,19 @@
-var gulp = require('gulp'),
-    gulp_util = require('gulp-util'),
-    watch = require('gulp-watch'),
-    rename = require('gulp-rename'),
-    run = require('gulp-run'),
-    less = require('gulp-less'),
-    bower_resolve = require('bower-resolve'),
-    browserify = require('browserify'),
-    debowerify = require('debowerify'),
-    uglify = require('gulp-uglify'),
-    vinyl_source = require('vinyl-source-stream'),
-    vinyl_buffer = require('vinyl-buffer'),
-    es = require('event-stream'),
-    path = require('path'),
-    eslint = require('gulp-eslint'),
-    pkg_config = require('./package.json');
+var gulp = require('gulp');
+    var gulp_util = require('gulp-util');
+    var watch = require('gulp-watch');
+    var rename = require('gulp-rename');
+    var run = require('gulp-run');
+    var less = require('gulp-less');
+    var bower_resolve = require('bower-resolve');
+    var browserify = require('browserify');
+    var debowerify = require('debowerify');
+    var uglify = require('gulp-uglify');
+    var vinyl_source = require('vinyl-source-stream');
+    var vinyl_buffer = require('vinyl-buffer');
+    var es = require('event-stream');
+    var path = require('path');
+    var eslint = require('gulp-eslint');
+    var pkg_config = require('./package.json');
 
 // Applications with primary static sources. We define these here to avoid
 // picking up dependencies of the primary entry points and putting any
@@ -35,7 +35,6 @@ var sources = {
         'font/Inconsolata-Regular.ttf': {src: 'bower_components/inconsolata-googlefont/Inconsolata-Regular.ttf'},
         'font/RobotoSlab-Bold.ttf': {src: 'bower_components/robotoslab-googlefont/RobotoSlab-Bold.ttf'},
         'font/RobotoSlab-Regular.ttf': {src: 'bower_components/robotoslab-googlefont/RobotoSlab-Regular.ttf'},
-        'font/FontAwesome.otf': {src: 'bower_components/font-awesome/FontAwesome.otf'},
 
         'font/fontawesome-webfont.eot': {src: 'bower_components/font-awesome/fonts/fontawesome-webfont.eot'},
         'font/fontawesome-webfont.svg': {src: 'bower_components/font-awesome/fonts/fontawesome-webfont.svg'},
@@ -66,20 +65,21 @@ var standalone = {
 
 // Build application call, wraps building entry point files for a single
 // application. This is called by build and dev tasks.
-function build_app_sources (application, minify) {
+function build_app_sources(application, minify) {
     // Normalize file glob lists
     var bundles = Object.keys(sources[application]).map(function (entry_path) {
         var bundle_path = path.join(
-                pkg_config.name, application, 'static-src', '**', entry_path),
-            bundle_config = sources[application][entry_path] || {},
-            bundle;
+                pkg_config.name, application, 'static-src', '**', entry_path
+);
+            var bundle_config = sources[application][entry_path] || {};
+            var bundle;
 
         if (/\.js$/.test(bundle_path)) {
             // Javascript sources
             bundle = gulp
                 .src(bundle_path)
                 .pipe(es.map(function (file, cb) {
-                    if (typeof(bundle_config.expose) == 'undefined') {
+                    if (typeof (bundle_config.expose) === 'undefined') {
                         var parts = [
                             application,
                             path.basename(file.path, '.js')
@@ -136,7 +136,7 @@ function build_app_sources (application, minify) {
 }
 
 // Browserify build
-function browserify_stream (file, config, cb_output) {
+function browserify_stream(file, config, cb_output) {
     bower_resolve.offline = true;
     bower_resolve.init(function () {
         var bundle_stream = browserify({
@@ -147,7 +147,7 @@ function browserify_stream (file, config, cb_output) {
             bundle_stream = bundle_stream.external(module);
         });
 
-        if (typeof(config.expose) == 'undefined') {
+        if (typeof (config.expose) === 'undefined') {
             bundle_stream.add(file.path);
         }
         else {
@@ -175,8 +175,8 @@ function build_vendor_sources(data, cb_output) {
     bower_resolve.offline = true;
     bower_resolve.init(function () {
         var standalone_modules = Object.keys(standalone).map(function (module) {
-            var vendor_options = standalone[module] || {},
-                vendor_bundles = [];
+            var vendor_options = standalone[module] || {};
+                var vendor_bundles = [];
 
             // Bundle vendor libs for import via require()
             vendor_bundles.push(
@@ -193,7 +193,7 @@ function build_vendor_sources(data, cb_output) {
 
             // Bundle standalone for legacy use. These should only be used on
             // old documentation that does not yet use the new bundles
-            if (typeof(vendor_options.standalone) != 'undefined') {
+            if (typeof (vendor_options.standalone) !== 'undefined') {
                 vendor_bundles.push(
                     browserify({standalone: vendor_options.standalone})
                     .require(bower_resolve(module))
@@ -260,7 +260,7 @@ gulp.task('dev', function (done) {
 });
 
 gulp.task('lint', function (done) {
-    var paths = Object.keys(sources).map(function(application) {
+    var paths = Object.keys(sources).map(function (application) {
       return path.join(pkg_config.name, application, 'static-src', '**', '*.js');
     });
     return gulp
