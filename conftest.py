@@ -15,7 +15,6 @@ except ImportError:
         ('community', True),
         ('corporate', False),
         ('environment', 'readthedocs'),
-
         ('url_scheme', 'http'),
     )
 
@@ -25,7 +24,8 @@ def pytest_addoption(parser):
         '--including-search',
         action='store_true',
         dest='searchtests',
-        default=False, help='enable search tests',
+        default=False,
+        help='enable search tests',
     )
 
 
